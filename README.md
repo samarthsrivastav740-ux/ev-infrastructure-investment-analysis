@@ -140,6 +140,7 @@ Python is used to generate realistic operational charging events, enabling analy
 - Dim Vehicle
 - Dim Charging Station
 - Dim Date
+- Dim Customer
 
 ---
 
