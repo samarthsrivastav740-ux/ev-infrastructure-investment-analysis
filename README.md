@@ -108,18 +108,16 @@ Power BI Dashboard
 
 ### Government Data
 
-- State-wise EV Registrations
-- State Population
-- Total Registered Vehicles
-- Existing Operational Public Charging Stations
-- State Coordinates
+- state wise ev registrations 2019-2024
+- state population
+- state coordinates
 
-### Reference Datasets
+### Publicly available Reference Datasets (kaggle and other websites)
 
-- Vehicle Information
-- EV Sales by Manufacturer
-- Historical EV Category Trends
-- Vehicle Class Statistics
+- ev_vehicle_master
+- ev_sales_by_makers_and_cat_15-24
+- OperationalPC
+- ev_cat_01-24
 
 ### Simulated Data
 

@@ -1,98 +1,97 @@
-Vehicle_ID,Manufacturer,Vehicle_Model,Category,Battery_kWh,Estimated_Range_km,Max_DC_Charging_kW,Source,,,,,,,,,,,,,,
-VEH0001,Ampere,Nexus (3.0 kWh),2W,3,136,NULL,Greaves Electric Mobility,,,,,,,,,,,,,,
-VEH0002,Ampere,Magnus EX (2.3 kWh),2W,2.3,121,NULL,Greaves Electric Mobility / BikeWale,,,,,,,,,,,,,,
-VEH0003,Ampere,Primus (3.0 kWh),2W,3,107,NULL,Greaves Electric Mobility,,,,,,,,,,,,,,
-VEH0004,Ather,450X (2.9 kWh),2W,2.9,111,NULL,Ather Energy,,,,,,,,,,,,,,
-VEH0005,Ather,450X (3.7 kWh),2W,3.7,150,NULL,Ather Energy / Autocar India,,,,,,,,,,,,,,
-VEH0006,Ather,450S (2.9 kWh),2W,2.9,115,NULL,Ather Energy,,,,,,,,,,,,,,
-VEH0007,Ather,Rizta S (2.9 kWh),2W,2.9,123,NULL,Ather Energy / BikeWale,,,,,,,,,,,,,,
-VEH0008,Ather,Rizta Z (3.7 kWh),2W,3.7,160,NULL,Ather Energy,,,,,,,,,,,,,,
-VEH0009,Audi,e-tron 50 (71.0 kWh),4W,71,379,120,Audi India,,,,,,,,,,,,,,
-VEH0010,Audi,e-tron 55 (95.0 kWh),4W,95,484,150,Audi India / CarDekho,,,,,,,,,,,,,,
-VEH0011,Audi,e-tron GT (93.4 kWh),4W,93.4,500,270,Audi India,,,,,,,,,,,,,,
-VEH0012,Audi,Q8 e-tron (114.0 kWh),4W,114,600,170,Audi India / Autocar India,,,,,,,,,,,,,,
-VEH0013,Bajaj,Chetak Premium (3.2 kWh),2W,3.2,126,NULL,Bajaj Auto / BikeWale,,,,,,,,,,,,,,
-VEH0014,Bajaj,Chetak Urbane (2.9 kWh),2W,2.9,113,NULL,Bajaj Auto,,,,,,,,,,,,,,
-VEH0015,Bajaj,Chetak (3.0 kWh),2W,3,127,NULL,ZigWheels listing; BikeDekho and Autocar India Chetak-vs-iQube comparisons,,,,,,,,,,,,,,
-VEH0016,Bajaj,Chetak (3.5 kWh),2W,3.5,153,NULL,ZigWheels listing; BikeDekho and Autocar India Chetak-vs-iQube comparisons,,,,,,,,,,,,,,
-VEH0017,BGauss,C12i MAX (3.2 kWh),2W,3.2,135,NULL,BGauss Auto,,,,,,,,,,,,,,
-VEH0018,BMW,iX xDrive40 (71.0 kWh),4W,71,425,150,BMW India / CarWale,,,,,,,,,,,,,,
-VEH0019,BMW,iX xDrive50 (105.2 kWh),4W,105.2,635,195,BMW India,,,,,,,,,,,,,,
-VEH0020,BMW,i4 eDrive40 (83.9 kWh),4W,83.9,590,205,BMW India / Autocar India,,,,,,,,,,,,,,
-VEH0021,BMW,i7 xDrive60 (101.7 kWh),4W,101.7,625,195,BMW India,,,,,,,,,,,,,,
-VEH0022,BMW,iX1 xDrive30 (66.4 kWh),4W,66.4,440,130,BMW India / Evo India,,,,,,,,,,,,,,
-VEH0023,BYD,e6 (71.7 kWh),4W,71.7,520,60,BYD India,,,,,,,,,,,,,,
-VEH0024,BYD,Atto 3 (49.92 kWh),4W,49.92,468,70,BYD India / CarWale,,,,,,,,,,,,,,
-VEH0025,BYD,Atto 3 (60.48 kWh),4W,60.48,521,80,BYD India,,,,,,,,,,,,,,
-VEH0026,BYD,Seal (61.44 kWh),4W,61.44,510,110,BYD India / Evo India,,,,,,,,,,,,,,
-VEH0027,BYD,Seal (82.56 kWh),4W,82.56,650,150,BYD India,,,,,,,,,,,,,,
-VEH0028,Citroen,eC3 (29.2 kWh),4W,29.2,320,30,Citroen India / CarDekho,,,,,,,,,,,,,,
-VEH0029,Hero MotoCorp,Vida V1 Pro (3.94 kWh),2W,3.94,165,NULL,Vida World / ZigWheels,,,,,,,,,,,,,,
-VEH0030,Hero MotoCorp,Vida V1 Plus (3.44 kWh),2W,3.44,143,NULL,Vida World,,,,,,,,,,,,,,
-VEH0031,Hyundai,Creta Electric (42.0 kWh),4W,42,390,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0032,Hyundai,Creta Electric (51.4 kWh),4W,51.4,510,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0033,Hyundai,Ioniq 5 (72.6 kWh),4W,72.6,631,350,Hyundai India,,,,,,,,,,,,,,
-VEH0034,Hyundai,Ioniq 5 Facelift (84.0 kWh),4W,84,690,238,Hyundai India / Autocar India,,,,,,,,,,,,,,
-VEH0035,Jaguar,I-Pace (90.0 kWh),4W,90,470,100,Jaguar India / CarWale,,,,,,,,,,,,,,
-VEH0036,Kia,EV6 (77.4 kWh),4W,77.4,708,350,Kia India / Autocar India,,,,,,,,,,,,,,
-VEH0037,Kia,EV9 (99.8 kWh),4W,99.8,561,350,Kia India / ZigWheels,,,,,,,,,,,,,,
-VEH0038,Kia,Carens Clavis EV (42.0 kWh),4W,42,404,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0039,Kia,Carens Clavis EV (51.4 kWh),4W,51.4,490,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0040,Lexus,UX 300e (54.3 kWh),4W,54.3,400,50,Lexus India / HT Auto,,,,,,,,,,,,,,
-VEH0041,Mahindra,XUV400 EC Pro (34.5 kWh),4W,34.5,375,50,Mahindra Auto,,,,,,,,,,,,,,
-VEH0042,Mahindra,XUV400 EL Pro (39.4 kWh),4W,39.4,456,50,Mahindra Auto / ZigWheels,,,,,,,,,,,,,,
-VEH0043,Mahindra,BE 6 (59.0 kWh),4W,59,557,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0044,Mahindra,BE 6 (79.0 kWh),4W,79,683,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0045,Mahindra,XEV 9e (59.0 kWh),4W,59,542,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0046,Mahindra,XEV 9e (79.0 kWh),4W,79,656,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0047,Mahindra,XEV 9S (59.0 kWh),4W,59,521,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0048,Mahindra,XEV 9S (79.0 kWh),4W,79,679,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0049,Matter,Aera 5000 (5.0 kWh),2W,5,125,NULL,Matter / BikeWale,,,,,,,,,,,,,,
-VEH0050,Mercedes-Benz,EQC 400 (80.0 kWh),4W,80,414,110,Mercedes-Benz India,,,,,,,,,,,,,,
-VEH0051,Mercedes-Benz,EQB 250+ (70.5 kWh),4W,70.5,536,100,Mercedes-Benz India / Autocar India,,,,,,,,,,,,,,
-VEH0052,Mercedes-Benz,EQE 500 SUV (90.5 kWh),4W,90.5,550,170,Mercedes-Benz India,,,,,,,,,,,,,,
-VEH0053,Mercedes-Benz,EQS 580 (107.8 kWh),4W,107.8,857,200,Mercedes-Benz India / ZigWheels,,,,,,,,,,,,,,
-VEH0054,Mercedes-Benz,Maybach EQS 680 (107.8 kWh),4W,107.8,611,200,Mercedes-Benz India,,,,,,,,,,,,,,
-VEH0055,MG Motor,ZS EV (50.3 kWh),4W,50.3,461,50,MG Motor India,,,,,,,,,,,,,,
-VEH0056,MG Motor,Comet EV (17.3 kWh),4W,17.3,230,NULL,MG Motor India / CarWale,,,,,,,,,,,,,,
-VEH0057,MG Motor,Windsor EV (38.0 kWh),4W,38,331,50,MG Motor India / Autocar India,,,,,,,,,,,,,,
-VEH0058,MG Motor,Windsor EV (52.9 kWh),4W,52.9,449,50,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0059,MG Motor,Cyberster,4W,77,580,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0060,MG Motor,M9,4W,90,548,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0061,Mini,Cooper SE (32.6 kWh),4W,32.6,270,50,Mini India,,,,,,,,,,,,,,
-VEH0062,Oben,Rorr (4.4 kWh),2W,4.4,187,NULL,Oben Electric / Autocar India,,,,,,,,,,,,,,
-VEH0063,Okaya,Faast F4 (4.4 kWh),2W,4.4,160,NULL,Okaya EV,,,,,,,,,,,,,,
-VEH0064,Ola Electric,S1 (2.98 kWh),2W,2.98,141,NULL,Ola Electric / BikeWale,,,,,,,,,,,,,,
-VEH0065,Ola Electric,S1 Pro (4.0 kWh),2W,4,195,NULL,Ola Electric,,,,,,,,,,,,,,
-VEH0066,Ola Electric,S1 Air (3.0 kWh),2W,3,151,NULL,Ola Electric / ZigWheels,,,,,,,,,,,,,,
-VEH0067,Ola Electric,S1 X (2.0 kWh),2W,2,95,NULL,Ola Electric,,,,,,,,,,,,,,
-VEH0068,Ola Electric,S1 X (3.0 kWh),2W,3,143,NULL,Ola Electric,,,,,,,,,,,,,,
-VEH0069,Ola Electric,S1 X (4.0 kWh),2W,4,190,NULL,Ola Electric,,,,,,,,,,,,,,
-VEH0070,Porsche,Taycan (79.2 kWh),4W,79.2,431,225,Porsche India,,,,,,,,,,,,,,
-VEH0071,Porsche,Taycan Plus (93.4 kWh),4W,93.4,484,270,Porsche India / Autocar India,,,,,,,,,,,,,,
-VEH0072,Porsche,Macan EV (100.0 kWh),4W,100,591,270,Porsche India,,,,,,,,,,,,,,
-VEH0073,Pure EV,ePluto 7G (2.5 kWh),2W,2.5,120,NULL,Pure EV,,,,,,,,,,,,,,
-VEH0074,Pure EV,ecoDryft (3.0 kWh),2W,3,130,NULL,Pure EV / BikeWale,,,,,,,,,,,,,,
-VEH0075,River,Indie (4.0 kWh),2W,4,120,NULL,River / ZigWheels,,,,,,,,,,,,,,
-VEH0076,Simple Energy,One (5.0 kWh),2W,5,212,NULL,Simple Energy / Autocar India,,,,,,,,,,,,,,
-VEH0077,Tata,Nexon EV (30 kWh),4W,30,325,50,Tata Motors / Autocar India,,,,,,,,,,,,,,
-VEH0078,Tata,Nexon EV (45 kWh),4W,45,489,60,Tata Motors / CarWale,,,,,,,,,,,,,,
-VEH0079,Tata,Tiago EV (19.2 kWh),4W,19.2,250,50,Tata Motors / ZigWheels,,,,,,,,,,,,,,
-VEH0080,Tata,Tiago EV (24.0 kWh),4W,24,315,50,Tata Motors,,,,,,,,,,,,,,
-VEH0081,Tata,Tigor EV (26.0 kWh),4W,26,315,25,Tata Motors / CarDekho,,,,,,,,,,,,,,
-VEH0082,Tata,Punch EV (25.0 kWh),4W,25,315,50,Tata Motors,,,,,,,,,,,,,,
-VEH0083,Tata,Punch EV (35.0 kWh),4W,35,421,50,Tata Motors / Autocar India,,,,,,,,,,,,,,
-VEH0084,Tata,Curvv EV (45.0 kWh),4W,45,502,70,Tata Motors / Evo India,,,,,,,,,,,,,,
-VEH0085,Tata,Curvv EV (55.0 kWh),4W,55,585,70,Tata Motors,,,,,,,,,,,,,,
-VEH0086,Tata,Harrier EV (65.0 kWh),4W,65,538,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0087,Tata,Harrier EV (75.0 kWh),4W,75,627,NULL,"ZigWheels Electric Cars listing, Jul 2026",,,,,,,,,,,,,,
-VEH0088,Tork Motors,Kratos R (4.0 kWh),2W,4,180,NULL,Tork Motors / ZigWheels,,,,,,,,,,,,,,
-VEH0089,TVS,iQube (3.4 kWh),2W,3.4,100,NULL,TVS Motor,,,,,,,,,,,,,,
-VEH0090,TVS,iQube S (3.4 kWh),2W,3.4,100,NULL,TVS Motor / ZigWheels,,,,,,,,,,,,,,
-VEH0091,TVS,iQube ST (5.1 kWh),2W,5.1,150,NULL,TVS Motor,,,,,,,,,,,,,,
-VEH0092,TVS,X (4.44 kWh),2W,4.44,140,NULL,TVS Motor / Autocar India,,,,,,,,,,,,,,
-VEH0093,Ultraviolette,F77 (7.1 kWh),2W,7.1,206,NULL,Ultraviolette Automotive,,,,,,,,,,,,,,
-VEH0094,Ultraviolette,F77 Recon (10.3 kWh),2W,10.3,307,NULL,Ultraviolette Automotive / BikeWale,,,,,,,,,,,,,,
-VEH0095,Volvo,XC40 Recharge (78.0 kWh),4W,78,418,150,Volvo Cars India,,,,,,,,,,,,,,
-VEH0096,Volvo,C40 Recharge (78.0 kWh),4W,78,530,150,Volvo Cars India / CarWale,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,
+Vehicle_ID,Manufacturer,Vehicle_Model,Category,Battery_kWh,Estimated_Range_km,Max_DC_Charging_kW,Source
+VEH0001,Ampere,Nexus (3.0 kWh),2W,3,136,NULL,Greaves Electric Mobility
+VEH0002,Ampere,Magnus EX (2.3 kWh),2W,2.3,121,NULL,Greaves Electric Mobility / BikeWale
+VEH0003,Ampere,Primus (3.0 kWh),2W,3,107,NULL,Greaves Electric Mobility
+VEH0004,Ather,450X (2.9 kWh),2W,2.9,111,NULL,Ather Energy
+VEH0005,Ather,450X (3.7 kWh),2W,3.7,150,NULL,Ather Energy / Autocar India
+VEH0006,Ather,450S (2.9 kWh),2W,2.9,115,NULL,Ather Energy
+VEH0007,Ather,Rizta S (2.9 kWh),2W,2.9,123,NULL,Ather Energy / BikeWale
+VEH0008,Ather,Rizta Z (3.7 kWh),2W,3.7,160,NULL,Ather Energy
+VEH0009,Audi,e-tron 50 (71.0 kWh),4W,71,379,120,Audi India
+VEH0010,Audi,e-tron 55 (95.0 kWh),4W,95,484,150,Audi India / CarDekho
+VEH0011,Audi,e-tron GT (93.4 kWh),4W,93.4,500,270,Audi India
+VEH0012,Audi,Q8 e-tron (114.0 kWh),4W,114,600,170,Audi India / Autocar India
+VEH0013,Bajaj,Chetak Premium (3.2 kWh),2W,3.2,126,NULL,Bajaj Auto / BikeWale
+VEH0014,Bajaj,Chetak Urbane (2.9 kWh),2W,2.9,113,NULL,Bajaj Auto
+VEH0015,Bajaj,Chetak (3.0 kWh),2W,3,127,NULL,ZigWheels listing; BikeDekho and Autocar India Chetak-vs-iQube comparisons
+VEH0016,Bajaj,Chetak (3.5 kWh),2W,3.5,153,NULL,ZigWheels listing; BikeDekho and Autocar India Chetak-vs-iQube comparisons
+VEH0017,BGauss,C12i MAX (3.2 kWh),2W,3.2,135,NULL,BGauss Auto
+VEH0018,BMW,iX xDrive40 (71.0 kWh),4W,71,425,150,BMW India / CarWale
+VEH0019,BMW,iX xDrive50 (105.2 kWh),4W,105.2,635,195,BMW India
+VEH0020,BMW,i4 eDrive40 (83.9 kWh),4W,83.9,590,205,BMW India / Autocar India
+VEH0021,BMW,i7 xDrive60 (101.7 kWh),4W,101.7,625,195,BMW India
+VEH0022,BMW,iX1 xDrive30 (66.4 kWh),4W,66.4,440,130,BMW India / Evo India
+VEH0023,BYD,e6 (71.7 kWh),4W,71.7,520,60,BYD India
+VEH0024,BYD,Atto 3 (49.92 kWh),4W,49.92,468,70,BYD India / CarWale
+VEH0025,BYD,Atto 3 (60.48 kWh),4W,60.48,521,80,BYD India
+VEH0026,BYD,Seal (61.44 kWh),4W,61.44,510,110,BYD India / Evo India
+VEH0027,BYD,Seal (82.56 kWh),4W,82.56,650,150,BYD India
+VEH0028,Citroen,eC3 (29.2 kWh),4W,29.2,320,30,Citroen India / CarDekho
+VEH0029,Hero MotoCorp,Vida V1 Pro (3.94 kWh),2W,3.94,165,NULL,Vida World / ZigWheels
+VEH0030,Hero MotoCorp,Vida V1 Plus (3.44 kWh),2W,3.44,143,NULL,Vida World
+VEH0031,Hyundai,Creta Electric (42.0 kWh),4W,42,390,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0032,Hyundai,Creta Electric (51.4 kWh),4W,51.4,510,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0033,Hyundai,Ioniq 5 (72.6 kWh),4W,72.6,631,350,Hyundai India
+VEH0034,Hyundai,Ioniq 5 Facelift (84.0 kWh),4W,84,690,238,Hyundai India / Autocar India
+VEH0035,Jaguar,I-Pace (90.0 kWh),4W,90,470,100,Jaguar India / CarWale
+VEH0036,Kia,EV6 (77.4 kWh),4W,77.4,708,350,Kia India / Autocar India
+VEH0037,Kia,EV9 (99.8 kWh),4W,99.8,561,350,Kia India / ZigWheels
+VEH0038,Kia,Carens Clavis EV (42.0 kWh),4W,42,404,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0039,Kia,Carens Clavis EV (51.4 kWh),4W,51.4,490,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0040,Lexus,UX 300e (54.3 kWh),4W,54.3,400,50,Lexus India / HT Auto
+VEH0041,Mahindra,XUV400 EC Pro (34.5 kWh),4W,34.5,375,50,Mahindra Auto
+VEH0042,Mahindra,XUV400 EL Pro (39.4 kWh),4W,39.4,456,50,Mahindra Auto / ZigWheels
+VEH0043,Mahindra,BE 6 (59.0 kWh),4W,59,557,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0044,Mahindra,BE 6 (79.0 kWh),4W,79,683,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0045,Mahindra,XEV 9e (59.0 kWh),4W,59,542,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0046,Mahindra,XEV 9e (79.0 kWh),4W,79,656,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0047,Mahindra,XEV 9S (59.0 kWh),4W,59,521,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0048,Mahindra,XEV 9S (79.0 kWh),4W,79,679,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0049,Matter,Aera 5000 (5.0 kWh),2W,5,125,NULL,Matter / BikeWale
+VEH0050,Mercedes-Benz,EQC 400 (80.0 kWh),4W,80,414,110,Mercedes-Benz India
+VEH0051,Mercedes-Benz,EQB 250+ (70.5 kWh),4W,70.5,536,100,Mercedes-Benz India / Autocar India
+VEH0052,Mercedes-Benz,EQE 500 SUV (90.5 kWh),4W,90.5,550,170,Mercedes-Benz India
+VEH0053,Mercedes-Benz,EQS 580 (107.8 kWh),4W,107.8,857,200,Mercedes-Benz India / ZigWheels
+VEH0054,Mercedes-Benz,Maybach EQS 680 (107.8 kWh),4W,107.8,611,200,Mercedes-Benz India
+VEH0055,MG Motor,ZS EV (50.3 kWh),4W,50.3,461,50,MG Motor India
+VEH0056,MG Motor,Comet EV (17.3 kWh),4W,17.3,230,NULL,MG Motor India / CarWale
+VEH0057,MG Motor,Windsor EV (38.0 kWh),4W,38,331,50,MG Motor India / Autocar India
+VEH0058,MG Motor,Windsor EV (52.9 kWh),4W,52.9,449,50,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0059,MG Motor,Cyberster,4W,77,580,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0060,MG Motor,M9,4W,90,548,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0061,Mini,Cooper SE (32.6 kWh),4W,32.6,270,50,Mini India
+VEH0062,Oben,Rorr (4.4 kWh),2W,4.4,187,NULL,Oben Electric / Autocar India
+VEH0063,Okaya,Faast F4 (4.4 kWh),2W,4.4,160,NULL,Okaya EV
+VEH0064,Ola Electric,S1 (2.98 kWh),2W,2.98,141,NULL,Ola Electric / BikeWale
+VEH0065,Ola Electric,S1 Pro (4.0 kWh),2W,4,195,NULL,Ola Electric
+VEH0066,Ola Electric,S1 Air (3.0 kWh),2W,3,151,NULL,Ola Electric / ZigWheels
+VEH0067,Ola Electric,S1 X (2.0 kWh),2W,2,95,NULL,Ola Electric
+VEH0068,Ola Electric,S1 X (3.0 kWh),2W,3,143,NULL,Ola Electric
+VEH0069,Ola Electric,S1 X (4.0 kWh),2W,4,190,NULL,Ola Electric
+VEH0070,Porsche,Taycan (79.2 kWh),4W,79.2,431,225,Porsche India
+VEH0071,Porsche,Taycan Plus (93.4 kWh),4W,93.4,484,270,Porsche India / Autocar India
+VEH0072,Porsche,Macan EV (100.0 kWh),4W,100,591,270,Porsche India
+VEH0073,Pure EV,ePluto 7G (2.5 kWh),2W,2.5,120,NULL,Pure EV
+VEH0074,Pure EV,ecoDryft (3.0 kWh),2W,3,130,NULL,Pure EV / BikeWale
+VEH0075,River,Indie (4.0 kWh),2W,4,120,NULL,River / ZigWheels
+VEH0076,Simple Energy,One (5.0 kWh),2W,5,212,NULL,Simple Energy / Autocar India
+VEH0077,Tata,Nexon EV (30 kWh),4W,30,325,50,Tata Motors / Autocar India
+VEH0078,Tata,Nexon EV (45 kWh),4W,45,489,60,Tata Motors / CarWale
+VEH0079,Tata,Tiago EV (19.2 kWh),4W,19.2,250,50,Tata Motors / ZigWheels
+VEH0080,Tata,Tiago EV (24.0 kWh),4W,24,315,50,Tata Motors
+VEH0081,Tata,Tigor EV (26.0 kWh),4W,26,315,25,Tata Motors / CarDekho
+VEH0082,Tata,Punch EV (25.0 kWh),4W,25,315,50,Tata Motors
+VEH0083,Tata,Punch EV (35.0 kWh),4W,35,421,50,Tata Motors / Autocar India
+VEH0084,Tata,Curvv EV (45.0 kWh),4W,45,502,70,Tata Motors / Evo India
+VEH0085,Tata,Curvv EV (55.0 kWh),4W,55,585,70,Tata Motors
+VEH0086,Tata,Harrier EV (65.0 kWh),4W,65,538,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0087,Tata,Harrier EV (75.0 kWh),4W,75,627,NULL,"ZigWheels Electric Cars listing, Jul 2026"
+VEH0088,Tork Motors,Kratos R (4.0 kWh),2W,4,180,NULL,Tork Motors / ZigWheels
+VEH0089,TVS,iQube (3.4 kWh),2W,3.4,100,NULL,TVS Motor
+VEH0090,TVS,iQube S (3.4 kWh),2W,3.4,100,NULL,TVS Motor / ZigWheels
+VEH0091,TVS,iQube ST (5.1 kWh),2W,5.1,150,NULL,TVS Motor
+VEH0092,TVS,X (4.44 kWh),2W,4.44,140,NULL,TVS Motor / Autocar India
+VEH0093,Ultraviolette,F77 (7.1 kWh),2W,7.1,206,NULL,Ultraviolette Automotive
+VEH0094,Ultraviolette,F77 Recon (10.3 kWh),2W,10.3,307,NULL,Ultraviolette Automotive / BikeWale
+VEH0095,Volvo,XC40 Recharge (78.0 kWh),4W,78,418,150,Volvo Cars India
+VEH0096,Volvo,C40 Recharge (78.0 kWh),4W,78,530,150,Volvo Cars India / CarWale
