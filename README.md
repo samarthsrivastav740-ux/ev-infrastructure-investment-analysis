@@ -1,206 +1,218 @@
 # EV Infrastructure Investment Analysis
 
-An end-to-end Analytics Engineering project that helps identify which Indian states should be prioritized for EV charging infrastructure investment using government datasets, simulated operational data, and a modern ELT pipeline.
+An end-to-end **Analytics Engineering** project that helps identify
+which Indian states should be prioritized for EV charging infrastructure
+investment using government datasets, simulated operational data,
+PostgreSQL, dbt, and Power BI.
 
----
+------------------------------------------------------------------------
 
-## Business Problem
+# Business Problem
 
-The Government of India has allocated a limited budget of **₹1,000 crore** to expand the country's electric vehicle (EV) charging infrastructure.
+The Government of India has allocated a **₹1,000 crore** budget to
+expand EV charging infrastructure.
 
-Since the budget cannot support every state equally, decision-makers need a data-driven approach to determine where new investments will generate the greatest impact.
+Since the budget cannot fund every state equally, stakeholders need a
+data-driven approach to identify where investment will have the greatest
+impact.
 
-This project builds an analytics platform that evaluates EV adoption, existing charging infrastructure, and projected charging demand to rank Indian states based on infrastructure investment priority.
+Rather than fabricating city-level data, this project intentionally
+performs **state-level analysis** because publicly available datasets
+are consistently available at the state granularity.
 
----
+The final deliverable is a **State Expansion Priority Score** that
+supports infrastructure investment decisions.
 
-## Project Objective
+------------------------------------------------------------------------
 
-Build an automated data platform capable of answering questions such as:
+# Project Objective
 
-- Which states have the largest EV infrastructure gap?
-- Where is charging demand expected to exceed existing capacity?
-- Which states should receive priority investment?
-- How can charging companies and policymakers allocate resources more effectively?
+Build an end-to-end analytics platform capable of:
 
-The final output is a **State Expansion Priority Score** that supports strategic investment decisions.
+-   Simulating a realistic EV charging ecosystem
+-   Engineering an analytical database
+-   Transforming raw operational data into business-ready models
+-   Calculating infrastructure KPIs
+-   Recommending investment priorities for Indian states
 
----
+------------------------------------------------------------------------
 
-## Why State-Level Analysis?
-
-Initially, this project aimed to recommend investments at the city level.
-
-However, after evaluating publicly available datasets, it became clear that reliable city-level EV registration and charging infrastructure data was not consistently available.
-
-Rather than generating artificial city-level metrics, the project intentionally operates at the **state level** to maintain data integrity and produce reliable recommendations.
-
----
-
-## Stakeholders
-
-### Government
-
-- Allocate infrastructure funding efficiently
-- Identify states requiring immediate investment
-
-### Charging Network Companies
-
-Examples:
-- Tata Power EZ Charge
-- Statiq
-- ChargeZone
-- Ather Grid
-
-Use the analysis to identify underserved markets with strong growth potential.
-
-### Investors
-
-- Evaluate expected charging demand
-- Prioritize regions with higher infrastructure utilization potential
-
-### EV Manufacturers
-
-- Assess infrastructure readiness before expanding into new markets
-
----
-
-## Technology Stack
+# Technology Stack
 
 | Category | Tools |
-|----------|------|
-| Programming Languages | Python, SQL |
-| Cloud Platform | Google Cloud Platform (GCS, BigQuery) |
-| Transformation | dbt |
-| Orchestration | Apache Airflow |
-| BI & Visualization | Power BI |
-| Version Control | Git & GitHub |
+|----------|----------|
+|   Programming       |     Python, SQL     |
+|    Database      |      PostgreSQL    |
+|       Transformation   |    dbt      |
+| Visualization   | Power BI   |
+| Version Control |  Git, GitHub |
 
----
+------------------------------------------------------------------------
 
-## Project Architecture
+# Project Architecture
 
-```
+``` text
 Reference Datasets
         │
-        ▼
-Python Data Simulation
+        ├── Government Data
         │
-        ▼
-Google Cloud Storage
-        │
-        ▼
-BigQuery (RAW)
-        │
-        ▼
-dbt Transformation
-        │
-        ▼
-Analytics Mart
-        │
-        ▼
-Power BI Dashboard
+        ├── Public Reference Data
+                │
+                ▼
+      Python Simulation Engine
+                │
+      ┌─────────┼──────────┐
+      ▼         ▼          ▼
+dim_customer  dim_charging_station  fact_charging_events
+                │
+                ▼
+      Python Data Validation
+                │
+                ▼
+          PostgreSQL (Raw)
+                │
+                ▼
+              dbt Models
+      (staging → intermediate → marts)
+                │
+                ▼
+        Business KPI Calculation
+                │
+                ▼
+          Power BI Dashboard
+                │
+                ▼
+ State Expansion Priority Score
 ```
 
----
+------------------------------------------------------------------------
 
-## Data Sources
+# Data Sources
 
-### Government Data
+## Government Data
 
-- state wise ev registrations 2019-2024
-- state population
-- state coordinates
+-   State-wise EV Registrations (2019--2024)
+-   State Population
+-   State Coordinates
 
-### Publicly available Reference Datasets (kaggle and other websites)
+## Reference Data
 
-- ev_vehicle_master
-- ev_sales_by_makers_and_cat_15-24
-- OperationalPC
-- ev_cat_01-24
+-   Operational Public Charging Stations
+-   EV Sales by Manufacturer
+-   EV Vehicle Master
 
-### Simulated Data
+## Simulated Data
 
-Python is used to generate realistic operational charging events, enabling analysis at production-like scale.
+Python generates:
 
----
+-   Dim Customer
+-   Dim Charging Station
+-   Fact Charging Events
 
-## Planned Data Model
+------------------------------------------------------------------------
 
-### Fact Tables
+# Planned Data Model
 
-- Fact Charging Events
-- Fact Daily Charging Demand
+## Dimension Tables
 
-### Dimension Tables
+-   Dim Customer
+-   Dim Charging Station
+-   Dim Vehicle
+-   Dim Date
+-   Dim State
 
-- Dim State
-- Dim Vehicle
-- Dim Charging Station
-- Dim Date
-- Dim Customer
+## Fact Tables
 
----
+-   Fact Charging Events
+-   Fact Daily Charging Demand (Derived)
 
-## Key Business Metrics
+------------------------------------------------------------------------
 
-The analytics layer will calculate metrics including:
+# Execution Flow
 
-- EV Penetration
-- Chargers per 1,000 EVs
-- Charging Demand
-- Infrastructure Gap
-- Charger Utilization
-- State Expansion Priority Score
+``` text
+python main.py
+      │
+      ▼
+Load Reference Data
+      ▼
+Generate Simulation
+      ▼
+Validate Data
+      ▼
+Load into PostgreSQL
+      ▼
+dbt run
+      ▼
+dbt test
+      ▼
+Power BI
+```
 
----
+------------------------------------------------------------------------
 
-## Dashboard
+# Key Business Metrics
+
+-   EV Penetration
+-   Chargers per 1,000 EVs
+-   Charging Demand
+-   Charger Utilization
+-   Infrastructure Gap
+-   State Readiness Score
+-   State Expansion Priority Score
+
+------------------------------------------------------------------------
+
+# Dashboard
 
 The Power BI dashboard will include:
 
-- Executive Summary
-- State-wise EV Adoption
-- Charging Infrastructure Overview
-- Infrastructure Gap Analysis
-- State Priority Ranking
-- Investment Recommendation Dashboard
+-   Executive Summary
+-   State EV Adoption
+-   Charging Infrastructure
+-   Infrastructure Gap Analysis
+-   Charging Demand Analysis
+-   State Priority Ranking
+-   ₹1,000 Crore Investment Recommendation
 
----
+------------------------------------------------------------------------
 
-## Repository Structure
+# Repository Structure
 
-```
+``` text
 .
-├── airflow/
 ├── data/
+│   ├── reference/
+│   └── simulated/
+├── python/
+│   ├── simulation/
+│   ├── validation/
+│   └── loaders/
+├── postgres/
 ├── dbt/
+├── powerbi/
 ├── docs/
 ├── images/
-├── powerbi/
-├── python/
-├── sql/
-├── README.md
-└── requirements.txt
+├── main.py
+├── requirements.txt
+└── README.md
 ```
 
----
+------------------------------------------------------------------------
 
-## Project Status
+# Project Status
 
-Current Stage:
+-   ✅ Business Problem Finalized
+-   ✅ Architecture Finalized
+-   ✅ Dataset Collection Completed
+-   🚧 Simulation Design In Progress
+-   ⏳ Python Simulation
+-   ⏳ PostgreSQL Integration
+-   ⏳ dbt Models
+-   ⏳ Power BI Dashboard
 
-- Business Problem Defined
-- Architecture Finalized
-- Dataset Collection Completed
-- Data Simulation (In Progress)
-- ELT Pipeline (Upcoming)
-- dbt Models (Upcoming)
-- Power BI Dashboard (Upcoming)
+------------------------------------------------------------------------
 
-
----
-
-## License
+# License
 
 This project is intended for educational and portfolio purposes.
