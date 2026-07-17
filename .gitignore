@@ -1,0 +1,12 @@
+# Virtual Environment
+.venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Generated Data
+data/simulated/
+
+# VS Code Settings
+.vscode/
