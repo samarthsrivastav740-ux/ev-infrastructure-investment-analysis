@@ -9,7 +9,7 @@ import numpy as np
 # Project Constants
 #==========================================
 
-Total_Customers = 500000
+Total_Customers = 5000
 
 #==========================================
 # Column 1 - Customer_ID
@@ -203,5 +203,439 @@ else:
 
 comparison_df.to_csv(
     "data/simulated/home_state_validation.csv",
+    index=False
+)
+
+
+#==========================================
+# Column 3 - Vehicle_ID
+#==========================================
+
+# Load EV sales by manufacturer and category dataset
+from python.utils.file_paths import EV_SALES_BY_CAT_AND_MAKERS
+
+ev_sales_df=pd.read_csv(EV_SALES_BY_CAT_AND_MAKERS)
+
+# Keep only required columns
+ev_sales_df=ev_sales_df[
+    [
+        "Cat","Maker","2015","2016","2017","2018","2019","2020",
+        "2021","2022","2023","2024"
+    ]
+]
+
+# keep only 2W and LMV records
+ev_sales_df=ev_sales_df[
+    ev_sales_df["Cat"].isin(
+        ["2W","LMV"]
+    )
+]
+
+# Reset the index 
+ev_sales_df=ev_sales_df.reset_index(drop=True)
+
+# Rename LMV to 4W
+ev_sales_df["Cat"]=(
+    ev_sales_df["Cat"]
+    .replace(
+        {
+            "LMV":"4W"
+        }
+    )
+)
+
+# Load EV Vehicle Master dataset
+from python.utils.file_paths import EV_VEHICLE_MASTER
+
+vehicle_master_df=pd.read_csv(EV_VEHICLE_MASTER)
+
+# Keep only required columns
+vehicle_master_df=vehicle_master_df[
+    [
+        "Vehicle_ID","Manufacturer","Vehicle_Model","Category","Battery_kWh",
+        "Estimated_Range_km","Max_DC_Charging_kW"
+    ]
+]
+
+# Standardize manufacturer names
+# The EV sales dataset contains legal company names,
+# while the EV vehicle master uses simplified manufacturer names.
+# Map all legal names to a common manufacturer name.
+
+manufacturer_mapping = {
+
+    # Ampere
+    "AMPERE VEHICLES PRIVATE LIMITED": "Ampere",
+    "AMPERE VEHICLES PVT LTD": "Ampere",
+
+    # Ather
+    "ATHER ENERGY PVT LTD": "Ather",
+
+    # Audi
+    "AUDI AG": "Audi",
+
+    # Bajaj
+    "BAJAJ AUTO LTD": "Bajaj",
+
+    # BGauss
+    "BGAUSS AUTO PRIVATE LIMITED": "BGauss",
+
+    # BMW
+    "BMW INDIA PVT LTD": "BMW",
+
+    # BYD
+    "BYD AUTO": "BYD",
+    "BYD INDIA PRIVATE LIMITED": "BYD",
+
+    # Hero MotoCorp
+    "HERO MOTOCORP LTD": "Hero MotoCorp",
+
+    # Hyundai
+    "HYUNDAI MOTOR INDIA LTD": "Hyundai",
+
+    # Jaguar
+    "JAGUAR LAND ROVER INDIA LIMITED": "Jaguar",
+
+    # Kia
+    "KIA INDIA PRIVATE LIMITED": "Kia",
+
+    # Mahindra
+    "MAHINDRA & MAHINDRA LIMITED": "Mahindra",
+    "MAHINDRA ELECTRIC MOBILITY LIMITED": "Mahindra",
+    "MAHINDRA LAST MILE MOBILITY LTD": "Mahindra",
+
+    # Mercedes-Benz
+    "MERCEDES-BENZ AG": "Mercedes-Benz",
+    "MERCEDES-BENZ INDIA PVT LTD": "Mercedes-Benz",
+
+    # MG Motor
+    "MG MOTOR INDIA PVT LTD": "MG Motor",
+
+    # Oben
+    "OBEN ELECTRIC VEHICLES PVT LTD": "Oben",
+
+    # Okaya
+    "OKAYA EV PVT LTD": "Okaya",
+
+    # Ola Electric
+    "OLA ELECTRIC TECHNOLOGIES PVT LTD": "Ola Electric",
+
+    # Porsche
+    "PORSCHE AG GERMANY": "Porsche",
+
+    # River
+    "RIVER MOBILITY PVT LTD": "River",
+
+    # Tata
+    "TATA MOTORS LTD": "Tata",
+    "TATA MOTORS PASSENGER VEHICLES LTD": "Tata",
+    "TATA PASSENGER ELECTRIC MOBILITY LTD": "Tata",
+
+    # Tork Motors
+    "TORK MOTORS PVT LTD": "Tork Motors",
+
+    # TVS
+    "TVS MOTOR COMPANY LTD": "TVS",
+
+    # Ultraviolette
+    "ULTRAVIOLETTE AUTOMOTIVE PVT LTD": "Ultraviolette",
+
+    # Volvo
+    "VOLVO AUTO INDIA PVT LTD": "Volvo"
+}
+
+# Replace manufacturer names with standardized names
+ev_sales_df["Maker"]=(
+    ev_sales_df["Maker"].replace(manufacturer_mapping)
+)
+
+# Keep only manufacturers present in EV Vehicle Master
+ev_sales_df=ev_sales_df[
+    ev_sales_df["Maker"].isin(
+        vehicle_master_df["Manufacturer"]
+    )
+]
+
+# Reset the index
+ev_sales_df=ev_sales_df.reset_index(drop=True)
+
+# Get all valid Category-Manufacturer combinations
+# from EV Vehicle Master.
+valid_combinations = (
+    vehicle_master_df[
+        ["Category", "Manufacturer"]
+    ]
+    .drop_duplicates()
+)
+
+# Keep only Category-Manufacturer combinations
+# that exist in EV Vehicle Master.
+ev_sales_df = ev_sales_df.merge(
+    valid_combinations,
+    left_on=["Cat", "Maker"],
+    right_on=["Category", "Manufacturer"],
+    how="inner"
+)
+
+# Remove duplicate columns created by merge
+ev_sales_df = ev_sales_df.drop(
+    columns=[
+        "Category",
+        "Manufacturer"
+    ]
+)
+
+# Reset the index
+ev_sales_df = ev_sales_df.reset_index(drop=True)
+
+# Calculate total sales across all years
+ev_sales_df["Total_Sales"] = (
+    ev_sales_df[
+        [
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024"
+        ]
+    ]
+    .sum(axis=1)
+)
+
+# Calculate total sales for each vehicle category
+category_sales=(
+    ev_sales_df
+    .groupby("Cat")["Total_Sales"]
+    .sum()
+    .reset_index()
+)
+
+# Calculate category probabilities
+category_sales["Probability"]=(
+    category_sales["Total_Sales"]/category_sales["Total_Sales"].sum()
+)
+
+# Calculate total sales for each manufacturer
+# within each vehicle category.
+manufacturer_sales=(
+    ev_sales_df
+    .groupby(
+        ["Cat","Maker"]
+    )["Total_Sales"]
+    .sum()
+    .reset_index()
+)
+
+# Calculate manufacturer probability
+# within each vehicle category.
+manufacturer_sales["Probability"]=(
+    manufacturer_sales["Total_Sales"]/
+    manufacturer_sales.groupby("Cat")["Total_Sales"]
+    .transform("sum")
+)
+
+#==========================================
+# Generate Vehicle_ID
+#==========================================
+
+def generate_vehicle_ids(
+        total_customers,
+        category_sales,
+        manufacturer_sales,
+        vehicle_master_df
+):
+    '''
+    Generate Vehicle_ID for every customer.
+    Vehicle assignment follows three steps:
+    1. Select vehicle category (2W / 4W)
+    2. Select manufacturer within the selected category
+    3. Select vehicle model uniformly within the selected manufacturer
+    '''
+
+    # Create an empty list to store Vehicle IDs
+    vehicle_ids=[]
+
+    # Generate one vehicle for each customer
+    for i in range(total_customers):
+        #========================
+        # Step 1 - Select Vehicle category
+        #========================
+
+        selected_category=np.random.choice(
+            # Vehicle category to choose from
+            category_sales["Cat"],
+
+            # Select one category
+            size=1,
+
+            # Category probabilities
+            p=category_sales["Probability"] 
+        )[0]
+
+        #========================
+        # Step 2 - Select Manufacturer
+        #========================
+
+        # Keep only manufacturer 
+        # related to the selected category.
+        category_manufacturers=(
+            manufacturer_sales[
+                manufacturer_sales["Cat"]==selected_category
+            ]
+        )
+    
+        # Select manufacturer using weighted
+        # random sampling.
+        selected_manufacturer=np.random.choice(
+    
+            # Manufacturer to choose from
+            category_manufacturers["Maker"],
+    
+            # Select one manufacturer
+            size=1,
+
+            # Manufacturer probabilities
+            p=category_manufacturers["Probability"]
+
+        )[0]
+        
+        #========================
+        # Step 3 - Select Vehicle
+        #========================
+
+        # Keep only vehicle belonging to the 
+        # selected category and customer.
+        available_vehicles=(
+            vehicle_master_df[
+                (vehicle_master_df["Category"]==selected_category)
+                &
+                (vehicle_master_df["Manufacturer"]==selected_manufacturer)
+            ]
+        )
+
+        # Select one vehicle uniformly from
+        # the available vehicle models
+        selected_vehicle=available_vehicles.sample(
+            n=1
+        ).iloc[0]
+
+        # Get Vehicle_ID
+        vehicle_id=selected_vehicle["Vehicle_ID"]
+        
+        # Add Vehicle_ID to the list
+        vehicle_ids.append(vehicle_id)
+
+    # Return the completed Vehicle_ID list
+    return vehicle_ids
+
+# Generate Vehicle_ID column
+customer_df["Vehicle_ID"] = generate_vehicle_ids(
+    Total_Customers,
+    category_sales,
+    manufacturer_sales,
+    vehicle_master_df
+)
+
+print(customer_df.head())
+
+#==========================================
+# Validation - Vehicle_ID
+#==========================================
+
+# Missing values
+print(
+    "Missing Vehicle_ID:",
+    customer_df["Vehicle_ID"].isnull().sum()
+)
+
+# Invalid Vehicle_ID
+# Every generated Vehicle_ID should exist in ev_vehicle_master.
+invalid_vehicle_ids = (
+    ~customer_df["Vehicle_ID"].isin(
+        vehicle_master_df["Vehicle_ID"]
+    )
+).sum()
+
+print(
+    "Invalid Vehicle_ID:",
+    invalid_vehicle_ids
+)
+
+# Simulated Category Distribution
+vehicle_validation = (
+    customer_df[
+        ["Vehicle_ID"]
+    ]
+    .merge(
+        vehicle_master_df[
+            ["Vehicle_ID", "Category"]
+        ],
+        on="Vehicle_ID"
+    )
+)
+
+# Calculate simulated distribution
+simulated_category = (
+    vehicle_validation["Category"]
+    .value_counts(normalize=True)
+    .reset_index()
+)
+
+simulated_category.columns = [
+    "Category",
+    "Simulated_Probability"
+]
+
+# Compare with reference
+actual_category = (
+    category_sales[
+        ["Cat", "Probability"]
+    ]
+    .rename(
+        columns={
+            "Cat":"Category"
+        }
+    )
+)
+
+# Merge
+category_comparison = (
+    actual_category.merge(
+        simulated_category,
+        on="Category"
+    )
+)
+
+category_comparison["Difference"] = (
+    category_comparison["Simulated_Probability"]
+    -
+    category_comparison["Probability"]
+)
+
+print(category_comparison.head())
+
+# Maximum Difference
+max_difference = (
+    category_comparison["Difference"]
+    .abs()
+    .max()
+)
+
+print(
+    f"\nMaximum Difference: {max_difference:.6f}"
+)
+
+if max_difference < 0.002:
+    print("Vehicle Category validation PASSED")
+else:
+    print("Vehicle Category validation FAILED")
+
+category_comparison.to_csv(
+    "data/simulated/vehicle_category_validation.csv",
     index=False
 )
