@@ -639,3 +639,277 @@ category_comparison.to_csv(
     "data/simulated/vehicle_category_validation.csv",
     index=False
 )
+
+#==========================================
+# Column 4 - Daily_Distance_km
+#==========================================
+
+#==========================================
+# Simulation Parameters
+#==========================================
+
+# Average daily distance for 2W customers.
+# Based on ORF mobility studies reporting
+# urban two-wheelers typically travel
+# around 27–33 km/day
+AVERAGE_2W_DISTANCE=30
+
+# Additional distance assigned to 4W customers.
+# Engineering assumption to reflect longer
+# average travel compared to 2W customers.
+FOUR_WHEELER_DISTANCE_OFFSET = 10
+
+# Average daily distance for 4W customers
+AVERAGE_4W_DISTANCE=(
+    AVERAGE_2W_DISTANCE+FOUR_WHEELER_DISTANCE_OFFSET
+)
+
+# Standard deviation for daily distance.
+# Engineering assumption.
+DISTANCE_STANDARD_DEVIATION=8
+
+# Minimum allowed average daily distance.
+# Engineering assumption.
+MIN_DAILY_DISTANCE = 5
+
+# Maximum allowed average daily distance.
+# Engineering assumption.
+MAX_DAILY_DISTANCE = 80
+
+#==========================================
+# Get Vehicle Category
+#==========================================
+
+# Add vehicle category to customer dataframe
+# using Vehicle_ID.
+customer_df=customer_df.merge(
+    
+    # Keep only required columns
+    vehicle_master_df[
+        ["Vehicle_ID", "Category"]
+    ],
+
+    # Merge using Vehicle_ID
+    on="Vehicle_ID",
+
+    # keep all customers
+    how="left" 
+)
+
+#==========================================
+# Validation - Vehicle Category
+#==========================================
+
+# Check for missing categories
+print(
+    "Missing Categories:",
+    customer_df["Category"].isnull().sum()
+)
+
+# Display category distribution
+print(
+    customer_df["Category"]
+    .value_counts()
+)
+
+def generate_daily_distance(customer_dataframe):
+    """
+    Generate Daily_Distance_km for every customer.
+
+    Daily distance is generated using a normal
+    distribution based on the customer's
+    vehicle category.
+
+    2W customers use the evidence-based
+    average daily distance.
+
+    4W customers use a higher average daily
+    distance based on an engineering
+    assumption.
+    """
+
+    # Create empty list to store 
+    # daily travel distance.
+    daily_distances=[]
+
+    # Generate distance for every customer
+    for i in range(len(customer_dataframe)):
+
+        # Get vehicle category
+        category=(
+            customer_dataframe
+            .iloc[i]["Category"]
+        )
+
+        #================================
+        # Select average daily distance
+        #================================
+
+        # 2W customers
+        if category == "2W":
+            average_distance=(
+                AVERAGE_2W_DISTANCE
+            )
+        
+        # 4W customers
+        elif category=="4W":
+            average_distance=(
+                AVERAGE_4W_DISTANCE
+            )
+        
+        else:
+            raise ValueError(
+                f"Invalid vehicle category: {category}"
+            )
+        #==================================
+        # Generate Daily Distance
+        #==================================
+
+        daily_distance=np.random.normal(
+
+            # Average daily distance
+            loc=average_distance,
+
+            # Standard deviation
+            scale=DISTANCE_STANDARD_DEVIATION
+        )
+
+        # Restrict distance within
+        # minimum and maximum limits.
+        daily_distance=np.clip(
+
+            daily_distance,
+
+            MIN_DAILY_DISTANCE,
+
+            MAX_DAILY_DISTANCE
+        )
+
+        # Round to nearest kilometer
+        daily_distance=int(
+            round(daily_distance)
+        )
+
+        # Add distance to the list
+        daily_distances.append(
+            daily_distance
+        )
+    
+    # Return complete list
+    return daily_distances
+
+# Generate Daily_Distance_km column
+customer_df["Daily_Distance_km"] = (
+    generate_daily_distance(
+        customer_df
+    )
+)
+
+print(customer_df.head())
+
+#==========================================
+# Validation - Daily_Distance_km
+#==========================================
+
+print("\nDaily_Distance_km Validation")
+
+# Check for missing values
+print(
+    "Missing Daily_Distance_km:",
+    customer_df["Daily_Distance_km"].isnull().sum()
+)
+
+# Check minimum distance
+print(
+    "Minimum Daily_Distance_km:",
+    customer_df["Daily_Distance_km"].min()
+)
+
+# Check maximum distance
+print(
+    "Maximum Daily_Distance_km:",
+    customer_df["Daily_Distance_km"].max()
+)
+
+# Display summary statistics
+print("\nSummary Statistics")
+
+print(
+    customer_df["Daily_Distance_km"]
+    .describe()
+)
+
+# Average daily distance by vehicle category
+print("\nAverage Daily Distance by Category")
+
+print(
+    customer_df
+    .groupby("Category")["Daily_Distance_km"]
+    .mean()
+)
+
+# Compare with expected averages
+actual_mean=pd.DataFrame(
+    {
+        "Category":["2W","4W"],
+        "Expected_Mean":[AVERAGE_2W_DISTANCE,AVERAGE_4W_DISTANCE]
+    }
+)
+
+# Calculate simulated averages
+simulated_mean=(
+    customer_df
+    .groupby("Category")["Daily_Distance_km"]
+    .mean()
+    .reset_index()
+)
+
+simulated_mean.columns=[
+    "Category","Simulated_Mean"
+]
+
+# Merge expected and simulated averages
+comparison_df=(
+    actual_mean.merge(
+        simulated_mean,
+        on="Category"
+    )
+)
+
+# Calculate difference
+comparison_df["Difference"]=(
+    comparison_df["Simulated_Mean"]
+    -
+    comparison_df["Expected_Mean"]
+)
+
+print("\nExpected vs Simulated Average Daily Distance")
+
+print(comparison_df)
+
+# Maximum absolute difference
+max_difference = (
+    comparison_df["Difference"]
+    .abs()
+    .max()
+)
+
+print(
+    f"\nMaximum Difference: {max_difference:.6f}"
+)
+
+# Validation
+if max_difference < 0.5:
+    print("Daily_Distance_km validation PASSED")
+else:
+    print("Daily_Distance_km validation FAILED")
+
+# Save validation report
+comparison_df.to_csv(
+    "data/simulated/daily_distance_validation.csv",
+    index=False
+)
+
+
+
+
