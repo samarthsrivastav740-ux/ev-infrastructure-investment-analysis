@@ -5,8 +5,8 @@
 __pycache__/
 *.pyc
 
-# Generated Data
-data/simulated/
+# Validation Files
+data/simulated/*validation.csv
 
 # VS Code Settings
 .vscode/

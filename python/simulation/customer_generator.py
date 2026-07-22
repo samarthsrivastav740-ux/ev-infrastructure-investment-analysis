@@ -5,11 +5,16 @@
 import pandas as pd
 import numpy as np
 
+
 #==========================================
 # Project Constants
 #==========================================
 
-Total_Customers = 5000
+Total_Customers = 500000
+
+RANDOM_SEED = 42
+np.random.seed(RANDOM_SEED)
+
 
 #==========================================
 # Column 1 - Customer_ID
@@ -945,7 +950,7 @@ print("\nHome_Charging_Available Validation")
 # Check missing values
 missing_home_charging=customer_df["Home_Charging_Available"].isna().sum()
 
-print(f"Missing Home_Charging_Available:",{missing_home_charging})
+print(f"Missing Home_Charging_Available:{missing_home_charging}")
 
 # Expected probability 
 expected_probability=HOME_CHARGING_PROBABILITY
@@ -995,3 +1000,74 @@ comparison_df.to_csv(
     index=False
 )
 
+# =============================================================================
+# Final Dataset Validation
+# =============================================================================
+
+print("\n" + "=" * 70)
+print("FINAL DATASET VALIDATION")
+print("=" * 70)
+
+# -------------------------------------------------------------------------
+# Dataset Shape
+# -------------------------------------------------------------------------
+
+print(f"\nTotal Rows    : {customer_df.shape[0]:,}")
+print(f"Total Columns : {customer_df.shape[1]}")
+
+# -------------------------------------------------------------------------
+# Data Types
+# -------------------------------------------------------------------------
+
+print("\nData Types")
+
+print(customer_df.info())
+
+# -------------------------------------------------------------------------
+# Missing Values
+# -------------------------------------------------------------------------
+
+print("\nMissing Values")
+
+missing_values = customer_df.isnull().sum()
+
+print(missing_values)
+
+# -------------------------------------------------------------------------
+# Duplicate Customer_ID Check
+# -------------------------------------------------------------------------
+
+duplicate_customer_ids = customer_df["Customer_ID"].duplicated().sum()
+
+print(f"\nDuplicate Customer_IDs : {duplicate_customer_ids}")
+
+# -------------------------------------------------------------------------
+# Duplicate Rows Check
+# -------------------------------------------------------------------------
+
+duplicate_rows = customer_df.duplicated().sum()
+
+print(f"Duplicate Rows : {duplicate_rows}")
+
+# -------------------------------------------------------------------------
+# Final Validation Status
+# -------------------------------------------------------------------------
+
+if (
+    missing_values.sum() == 0
+    and duplicate_customer_ids == 0
+    and duplicate_rows == 0
+):
+    print("\nFINAL DATASET VALIDATION PASSED")
+
+else:
+    print("\nFINAL DATASET VALIDATION FAILED")
+
+print("=" * 70)
+
+
+# Export dim_customer
+customer_df.to_csv(
+    "data/simulated/dim_customer.csv",
+    index=False
+)
