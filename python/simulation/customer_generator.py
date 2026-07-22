@@ -910,6 +910,88 @@ comparison_df.to_csv(
     index=False
 )
 
+#==========================================
+# Column 5 - Home_Charging_Available
+#==========================================
 
+# McKinsey Global Automotive Consumer Survey (India)
+# Approximately 55% of EV owners have access to home charging
 
+HOME_CHARGING_PROBABILITY = 0.55
+
+def generate_home_charging():
+    home_charging=[]
+
+    for _ in range(Total_Customers):
+
+        if np.random.random() < HOME_CHARGING_PROBABILITY:
+            home_charging.append(True)
+
+        else:
+            home_charging.append(False)
+    
+    return home_charging
+
+customer_df["Home_Charging_Available"]=generate_home_charging()
+
+print(customer_df.head())
+
+#==========================================
+# Validation - Home_Charging_Available
+#==========================================
+
+print("\nHome_Charging_Available Validation")
+
+# Check missing values
+missing_home_charging=customer_df["Home_Charging_Available"].isna().sum()
+
+print(f"Missing Home_Charging_Available:",{missing_home_charging})
+
+# Expected probability 
+expected_probability=HOME_CHARGING_PROBABILITY
+
+# Simulated probability
+simulated_probability= (
+    customer_df["Home_Charging_Available"].mean()
+)
+
+# Comparison table
+comparison_df=pd.DataFrame(
+    {
+        "Expected_probability":[expected_probability],
+        "Simulated_probability":[simulated_probability]
+
+    }
+)
+
+comparison_df["Difference"]=(
+    comparison_df["Simulated_probability"]
+    -
+    comparison_df["Expected_probability"]
+)
+
+print("\nExpected vs Simulated Home Charging Probability")
+
+print(comparison_df)
+
+# Maximum absolute difference
+max_difference = (
+    comparison_df["Difference"]
+    .abs()
+    .max()
+)
+
+print(f"\nMaximum Difference: {max_difference:.6f}")
+
+# Validation
+if max_difference < 0.02:
+    print("Home_Charging_Available validation PASSED")
+else:
+    print("Home_Charging_Available validation FAILED")
+
+# Save validation report
+comparison_df.to_csv(
+    "data/simulated/home_charging_validation.csv",
+    index=False
+)
 
