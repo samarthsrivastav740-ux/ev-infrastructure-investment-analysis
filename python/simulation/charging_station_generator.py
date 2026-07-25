@@ -194,6 +194,150 @@ comparison_df.to_csv(
     index=True
 )
 
+#==========================================
+# Column 3 & 4 - Latitude and Longitude
+#==========================================
+
+# Keep only required columns
+state_coordinates = state_coordinates[
+    [
+        "State/Union Territory",
+        "Latitude",
+        "Longitude"
+    ]
+]
+
+# Rename state column
+state_coordinates = state_coordinates.rename(
+    columns={
+        "State/Union Territory": "State"
+    }
+)
+
+#==========================================
+# Standardize Different State Names
+#==========================================
+
+state_mapping = {
+
+    "Andaman and Nicobar Islands":
+        "Andaman & Nicobar",
+
+    "Dadra and Nagar Haveli and Daman and Diu":
+        "D&D and DNH",
+
+    "Puducherry":
+    "Pondicherry"
+
+    
+}
+
+# Replace state names with standardized names
+state_coordinates["State"] = (
+    state_coordinates["State"]
+    .replace(state_mapping)
+)
+
+# Maximum random geographic offset
+# around the state's reference coordinate.
+# Engineering assumption.
+MAX_DISTANCE_OFFSET = 0.20
+
+def generate_station_locations(
+    charging_station_df,
+    state_coordinates       
+):
+    """
+    Generate Latitude and Longitude for every
+    charging station.
+
+    Each station is placed near the state's
+    reference coordinate by applying a small
+    random spatial offset.
+    """
+
+    # Create empty list
+    latitudes = []
+    longitudes = []
+
+    # Generate location for every station
+    for _, row in charging_station_df.iterrows():
+
+        # Get station state
+        state = row["State"]
+
+        # Get reference coordinate
+        reference_location = (
+            state_coordinates[
+                state_coordinates["State"] == state
+            ]
+            .iloc[0]
+        )
+
+        reference_latitude = reference_location["Latitude"]
+        reference_longitude = reference_location["Longitude"]
+
+        #==========================================
+        # Generate One Geographic Location
+        #==========================================
+
+        # Random direction (0° to 360°)
+        direction = np.random.uniform(
+            0,
+            2* np.pi
+        )
+
+        # Random distance from the reference point
+        distance = np.random.uniform(
+            0,
+            MAX_DISTANCE_OFFSET
+        )
+
+        # Convert polar coordinates to
+        # latitude and longitude offsets.
+        latitude_offset = (
+            distance * np.cos(direction)
+        )
+
+        longitude_offset = (
+            distance * np.sin(direction)
+        )
+
+        # Generate simulated location
+        latitude = (
+            reference_latitude
+            + latitude_offset
+        )
+
+        longitude = (
+            reference_longitude
+            + longitude_offset
+        )
+
+        # State cooridnates
+        latitudes.append(
+            round(latitude,6)
+        )
+
+        longitudes.append(
+            round(longitude,6)
+        )
+
+    # Return both columns
+    return latitudes,longitudes
+
+# Generate Latitude and Longitude
+latitudes, longitudes = generate_station_locations(
+    charging_station_df,
+    state_coordinates
+)
+
+charging_station_df["Latitude"] = latitudes
+charging_station_df["Longitude"] = longitudes
+
+print(charging_station_df.head(5))
+
+
 
 
 
