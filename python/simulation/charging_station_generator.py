@@ -97,6 +97,104 @@ if len(charging_station_df) == Total_Stations:
 else:
     print("Station count validation FAILED")
 
+#==========================================
+# Column 2 - State
+#==========================================
+
+# Required columns
+operational_pcs = operational_pcs[
+    [
+        "State",
+        "No. of Operational PCS"
+    ]
+]
+
+def generate_states(operational_pcs):
+    """
+    Generate State for every charging station.
+
+    Each state is repeated according to its
+    number of operational charging stations.
+    """
+
+    # Create empty list
+    states = []
+
+    # Generate stations for every state
+    for _, row in operational_pcs.iterrows():
+
+        # Get state name
+        state = row["State"]
+
+        # Get number of stations
+        station_count = int(
+            row["No. of Operational PCS"]
+        )
+
+        # Add state once for every station
+        for i in range(station_count):
+
+            states.append(state)
+
+    # Return completed list
+    return states
+
+# Generate State column
+charging_station_df["State"] = generate_states(
+    operational_pcs
+)
+
+#==========================================
+# Validation - State
+#==========================================
+
+print("\nState Validation")
+
+# Missing values
+print(
+    "Missing States:",
+    charging_station_df["State"].isnull().sum()
+)
+
+# Compare generated counts with reference
+generated_distribution = (
+    charging_station_df["State"]
+    .value_counts()
+    .sort_index()
+)
+
+reference_distribution = (
+    operational_pcs
+    .set_index("State")["No. of Operational PCS"]
+    .sort_index()
+)
+
+comparison_df = pd.DataFrame({
+    "Reference_Stations": reference_distribution,
+    "Generated_Stations": generated_distribution
+})
+
+comparison_df["Difference"] = (
+    comparison_df["Generated_Stations"]
+    -
+    comparison_df["Reference_Stations"]
+)
+
+print(comparison_df)
+
+# Validation
+if (comparison_df["Difference"] == 0).all():
+    print("\nState validation PASSED")
+else:
+    print("\nState validation FAILED")
+
+# Save validation report
+comparison_df.to_csv(
+    "data/simulated/station_state_validation.csv",
+    index=True
+)
+
+
 
 
 
