@@ -470,6 +470,104 @@ comparison_df.to_csv(
     index=True
 )
 
+#==========================================
+# Column 6 - Station_Type
+#==========================================
+
+def generate_station_type(charging_station_df):
+    """
+    Generate Station_Type based on Connector_Count.
+
+    Standard : 2 or 4 connectors
+    Hub      : 6 or 8 connectors
+    """
+
+    # Create empty list
+    station_types = []
+
+    # Generate Station_Type
+    for _, row in charging_station_df.iterrows():
+
+        connector_count = row["Connector_Count"]
+
+        if connector_count <= 4:
+            station_type = "Standard"
+        else:
+            station_type = "Hub"
+
+        station_types.append(station_type)
+
+    # Return completed list
+    return station_types
+
+# Generate Station_Type column
+charging_station_df["Station_Type"] =  generate_station_type(
+    charging_station_df
+)
+
+#==========================================
+# Validation - Station_Type
+#==========================================
+
+print("\nStation_Type Validation")
+
+# Missing values
+print(
+    "Missing Station_Type:",
+    charging_station_df["Station_Type"]
+    .isnull()
+    .sum()
+)
+
+# Distribution
+station_type_distribution = (
+    charging_station_df["Station_Type"]
+    .value_counts()
+)
+
+print("\nStation Type Distribution")
+print(station_type_distribution)
+
+# Check valid categories
+invalid_station_types = (
+    ~charging_station_df["Station_Type"]
+    .isin(["Standard", "Hub"])
+).sum()
+
+print(
+    "\nInvalid Station_Type Values:",
+    invalid_station_types
+)
+
+#==========================================
+# Validation - Connector Count Mapping
+#==========================================
+
+invalid_mapping = charging_station_df[
+    (
+        (charging_station_df["Connector_Count"] <= 4)
+        &
+        (charging_station_df["Station_Type"] != "Standard")
+    )
+    |
+    (
+        (charging_station_df["Connector_Count"] >= 6)
+        &
+        (charging_station_df["Station_Type"] != "Hub")
+    )
+]
+
+print(
+    "\nInvalid Connector Count Mapping:",
+    len(invalid_mapping)
+)
+
+if len(invalid_mapping) == 0:
+    print("Station_Type validation PASSED")
+else:
+    print("Station_Type validation FAILED")
+        
+
 
 
 
