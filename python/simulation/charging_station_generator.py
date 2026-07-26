@@ -180,7 +180,7 @@ comparison_df["Difference"] = (
     comparison_df["Reference_Stations"]
 )
 
-print(comparison_df)
+print(comparison_df.head(5))
 
 # Validation
 if (comparison_df["Difference"] == 0).all():
@@ -336,6 +336,139 @@ charging_station_df["Latitude"] = latitudes
 charging_station_df["Longitude"] = longitudes
 
 print(charging_station_df.head(5))
+
+#==========================================
+# Column 5 - Connector_Count
+#==========================================
+
+#==========================================
+# Simulation Parameters
+#==========================================
+
+# Possible connector capacities per station
+CONNECTOR_OPTIONS = [
+    2,
+    4,
+    6,
+    8
+]
+
+# Engineering assumptions informed by
+# Indian public charging infrastructure.
+
+CONNECTOR_CAPACITY_PROBABILITIES = [
+    0.75,
+    0.18,
+    0.05,
+    0.02
+]
+
+def generate_connector_count(total_stations):
+    """
+    Generate Connector_Count for every charging station.
+
+    Connector_Count represents the maximum number
+    of vehicles that can charge simultaneously.
+    """
+    connector_counts = []
+
+    # Generate one connector capacity
+    # for every charging station
+    for i in range(total_stations):
+
+        connector_count = np.random.choice(
+            CONNECTOR_OPTIONS,
+            p=CONNECTOR_CAPACITY_PROBABILITIES
+        )
+
+        connector_counts.append(
+            connector_count
+        )
+
+    return connector_counts
+
+# Generate Connector_Count column
+charging_station_df["Connector_Count"] = generate_connector_count(
+    Total_Stations
+)
+
+#==========================================
+# Validation - Connector_Count
+#==========================================
+
+print("\nConnector_Count Validation")
+
+# Missing values
+print(
+    "Missing Connector_Count:",
+    charging_station_df["Connector_Count"]
+    .isnull()
+    .sum()
+)
+
+# Connector distribution
+connector_distribution = (
+    charging_station_df["Connector_Count"]
+    .value_counts(normalize = True)
+    .sort_index()
+    *100
+)
+
+print("\nGenerated Distribution (%)")
+print(
+    connector_distribution.round(2)
+)
+
+# Validate connector categories
+invalid_connectors = (
+    ~charging_station_df["Connector_Count"]
+    .isin(CONNECTOR_OPTIONS)
+).sum()
+
+print(
+    "\nInvalid Connector_Count Values:",
+    invalid_connectors
+)
+
+# Comparing expected and generated distribution
+expected_distribution = pd.Series(
+    {
+        2: 75.0,
+        4: 18.0,
+        6: 5.0,
+        8: 2.0
+    },
+    name = "Expected (%)"
+)
+
+generated_distribution = (
+    charging_station_df["Connector_Count"]
+    .value_counts(normalize = True)
+    .sort_index()
+    *100
+).rename("Generated (%)")
+
+comparison_df = pd.concat(
+    [
+        expected_distribution,
+        generated_distribution
+    ],
+    axis = 1
+)
+
+comparison_df["Difference"] = (
+    comparison_df["Generated (%)"]
+    - comparison_df["Expected (%)"]
+)
+
+print("\nConnector Count Distribution")
+print(comparison_df.round(2))
+
+# Save validation report
+comparison_df.to_csv(
+    "data/simulated/connector_count_validation.csv",
+    index=True
+)
 
 
 
