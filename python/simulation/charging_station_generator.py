@@ -3,6 +3,14 @@ import numpy as np
 
 from python.utils.file_paths import *
 
+#==========================================
+# Random Seed
+#==========================================
+
+RANDOM_SEED = 42
+
+np.random.seed(RANDOM_SEED)
+
 # ==========================================================
 # Load Reference Datasets
 # ==========================================================
@@ -566,10 +574,17 @@ if len(invalid_mapping) == 0:
     print("Station_Type validation PASSED")
 else:
     print("Station_Type validation FAILED")
-        
 
+#==========================================
+# Save dim_charging_station
+#==========================================
 
+# Export dim_customer
+charging_station_df.to_csv(
+    "data/simulated/dim_charging_station.csv",
+    index=False
+)
 
-
+print("\ndim_charging_station.csv generated successfully.")
 
 
