@@ -19,4 +19,9 @@ EV_VEHICLE_MASTER=REFERENCE_FOLDER/"ev_vehicle_master.csv"
 OPERATIONAL_PCS_PATH=REFERENCE_FOLDER/"OperationalPC.csv"
 STATE_COORDINATES_PATH=REFERENCE_FOLDER/"state_coordinates.csv"
 
+# Simulated Dataset paths
+DIM_CUSTOMER = SIMULATED_FOLDER/"dim_customer.csv"
+DIM_CHARGING_STATION = SIMULATED_FOLDER/"dim_charging_station.csv"
+FACT_CHARGING_SESSIONS = SIMULATED_FOLDER/"fact_charging_sessions.csv"
+
 
