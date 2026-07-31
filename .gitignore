@@ -10,3 +10,6 @@ data/simulated/*validation.csv
 
 # VS Code Settings
 .vscode/
+
+# fact_charging_sessions (ignored due to large size)
+data/simulated/fact_charging_sessions.csv
