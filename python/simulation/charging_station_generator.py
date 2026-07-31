@@ -222,29 +222,6 @@ state_coordinates = state_coordinates.rename(
     }
 )
 
-#==========================================
-# Standardize Different State Names
-#==========================================
-
-state_mapping = {
-
-    "Andaman and Nicobar Islands":
-        "Andaman & Nicobar",
-
-    "Dadra and Nagar Haveli and Daman and Diu":
-        "D&D and DNH",
-
-    "Puducherry":
-    "Pondicherry"
-
-    
-}
-
-# Replace state names with standardized names
-state_coordinates["State"] = (
-    state_coordinates["State"]
-    .replace(state_mapping)
-)
 
 # Maximum random geographic offset
 # around the state's reference coordinate.
