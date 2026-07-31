@@ -514,7 +514,7 @@ def generate_vehicle_ids(
         #========================
 
         # Keep only vehicle belonging to the 
-        # selected category and customer.
+        # selected category and manufacturer.
         available_vehicles=(
             vehicle_master_df[
                 (vehicle_master_df["Category"]==selected_category)
