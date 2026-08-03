@@ -13,3 +13,6 @@ data/simulated/*validation.csv
 
 # fact_charging_sessions (ignored due to large size)
 data/simulated/fact_charging_sessions.csv
+
+# Database details for connection
+.env
