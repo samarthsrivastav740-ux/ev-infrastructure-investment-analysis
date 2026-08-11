@@ -11,6 +11,25 @@ RANDOM_SEED = 42
 
 np.random.seed(RANDOM_SEED)
 
+
+#==========================================
+# Simulation Scaling
+#==========================================
+
+# Government dataset total EV registrations
+TOTAL_REAL_WORLD_EVS = 3500000
+
+# Number of simulated customers
+TOTAL_SIMULATED_CUSTOMERS = 500000
+
+# Scale factor
+SCALING_FACTOR = (
+    TOTAL_SIMULATED_CUSTOMERS
+    / TOTAL_REAL_WORLD_EVS
+)
+
+print(f"\nScaling Factor : {SCALING_FACTOR:.4f}")
+
 # ==========================================================
 # Load Reference Datasets
 # ==========================================================
@@ -54,10 +73,57 @@ def generate_station_ids(total_stations):
 
 charging_station_df=pd.DataFrame()
 
-# Total operational charging stations
+#==========================================
+# Scale Charging Stations
+#==========================================
+
+# Government dataset total EV registrations
+TOTAL_REAL_WORLD_EVS = 3639617
+
+# Number of simulated customers
+TOTAL_SIMULATED_CUSTOMERS = 500000
+
+# Scaling factor
+SCALING_FACTOR = (
+    TOTAL_SIMULATED_CUSTOMERS
+    / TOTAL_REAL_WORLD_EVS
+)
+
+print(f"\nScaling Factor: {SCALING_FACTOR:.4f}")
+
+# Scale station count for every state
+operational_pcs["Scaled_Operational_PCS"] = (
+    operational_pcs["No. of Operational PCS"]
+    * SCALING_FACTOR
+).round().astype(int)
+
+# Ensure every state that originally had at least one
+# charging station still has at least one after scaling.
+operational_pcs.loc[
+    operational_pcs["No. of Operational PCS"] > 0,
+    "Scaled_Operational_PCS"
+] = operational_pcs.loc[
+    operational_pcs["No. of Operational PCS"] > 0,
+    "Scaled_Operational_PCS"
+].clip(lower=1)
+
+# Total simulated stations
 Total_Stations = operational_pcs[
-    "No. of Operational PCS"
+    "Scaled_Operational_PCS"
 ].sum()
+
+print(f"Scaled Total Stations: {Total_Stations}")
+
+# Optional: View scaling by state
+print(
+    operational_pcs[
+        [
+            "State",
+            "No. of Operational PCS",
+            "Scaled_Operational_PCS"
+        ]
+    ]
+)
 
 # Generate Station_ID column
 charging_station_df["Station_ID"] = generate_station_ids(
@@ -113,7 +179,8 @@ else:
 operational_pcs = operational_pcs[
     [
         "State",
-        "No. of Operational PCS"
+        "No. of Operational PCS",
+        "Scaled_Operational_PCS"
     ]
 ]
 
@@ -136,7 +203,7 @@ def generate_states(operational_pcs):
 
         # Get number of stations
         station_count = int(
-            row["No. of Operational PCS"]
+            row["Scaled_Operational_PCS"]
         )
 
         # Add state once for every station
@@ -173,19 +240,19 @@ generated_distribution = (
 
 reference_distribution = (
     operational_pcs
-    .set_index("State")["No. of Operational PCS"]
+    .set_index("State")["Scaled_Operational_PCS"]
     .sort_index()
 )
 
 comparison_df = pd.DataFrame({
-    "Reference_Stations": reference_distribution,
+    "Scaled_Stations": reference_distribution,
     "Generated_Stations": generated_distribution
 })
 
 comparison_df["Difference"] = (
     comparison_df["Generated_Stations"]
     -
-    comparison_df["Reference_Stations"]
+    comparison_df["Scaled_Stations"]
 )
 
 print(comparison_df.head(5))

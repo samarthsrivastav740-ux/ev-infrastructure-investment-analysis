@@ -91,14 +91,3 @@ Validation includes:
 
 
 ---
-
-
-# Related Files
-
-```text
-dim_customer/
-│
-├── customer_generator.py
-├── Overview.md
-└── Simulation_design.md
-```
