@@ -1,218 +1,215 @@
-# EV Infrastructure Investment Analysis
+# ⚡ EV Charging Network Operations Analytics Platform
 
-An end-to-end **Analytics Engineering** project that helps identify
-which Indian states should be prioritized for EV charging infrastructure
-investment using government datasets, simulated operational data,
-PostgreSQL, dbt, and Power BI.
+An end-to-end EV charging analytics platform built using **Python, PostgreSQL, SQL, dbt, and Power BI** to model and analyze charging network operations.
 
-------------------------------------------------------------------------
+The project converts **state-level EV and charging infrastructure aggregates** into a synthetic operational environment containing **500K customers, ~1,600 charging stations, and ~2.1M charging sessions across 35 days**.
 
-# Business Problem
+---
 
-The Government of India has allocated a **₹1,000 crore** budget to
-expand EV charging infrastructure.
+## 📌 Project Overview
 
-Since the budget cannot fund every state equally, stakeholders need a
-data-driven approach to identify where investment will have the greatest
-impact.
+Public EV datasets are largely available as **aggregated state-level data**, such as total EV registrations and operational charging stations per state, while charging networks operate through customer-level transactions, charging sessions, stations, and timestamps.
 
-Rather than fabricating city-level data, this project intentionally
-performs **state-level analysis** because publicly available datasets
-are consistently available at the state granularity.
+This project bridges this **macro-to-micro data gap** by using state-level reference aggregates, industry research, statistical distributions, and business assumptions to generate a synthetic operational charging environment for analytics.
 
-The final deliverable is a **State Expansion Priority Score** that
-supports infrastructure investment decisions.
+The platform answers questions such as:
 
-------------------------------------------------------------------------
+- How does charging demand change over time?
+- Who uses public charging and how frequently?
+- Which stations handle the most charging activity?
+- How does station utilization vary across the network?
+- How does charging demand and infrastructure utilization differ across states?
 
-# Project Objective
+---
 
-Build an end-to-end analytics platform capable of:
+## 🛠 Tech Stack
 
--   Simulating a realistic EV charging ecosystem
--   Engineering an analytical database
--   Transforming raw operational data into business-ready models
--   Calculating infrastructure KPIs
--   Recommending investment priorities for Indian states
+| Layer | Technology |
+| --- | --- |
+| Reference Data | Government Sources, Kaggle, Industry Reports |
+| Data Generation | Python, Pandas, NumPy |
+| Database | PostgreSQL |
+| Transformation | SQL, dbt |
+| Semantic & BI Layer | Power BI |
+| Version Control | Git & GitHub |
 
-------------------------------------------------------------------------
+---
 
-# Technology Stack
+# 🔄 Data Generation & Ingestion
 
-| Category | Tools |
-|----------|----------|
-|   Programming       |     Python, SQL     |
-|    Database      |      PostgreSQL    |
-|       Transformation   |    dbt      |
-| Visualization   | Power BI   |
-| Version Control |  Git, GitHub |
+Reference datasets were used to establish the distributions and operating conditions for the synthetic environment.
 
-------------------------------------------------------------------------
+Examples include:
 
-# Project Architecture
+- State-wise EV registrations *(aggregated state-level totals)*
+- Operational public charging stations *(aggregated state-level totals)*
+- EV sales by category & manufacturer
+- EV vehicle specifications
 
-``` text
-Reference Datasets
-        │
-        ├── Government Data
-        │
-        ├── Public Reference Data
-                │
-                ▼
-      Python Simulation Engine
-                │
-      ┌─────────┼──────────┐
-      ▼         ▼          ▼
-dim_customer  dim_charging_station  fact_charging_events
-                │
-                ▼
-      Python Data Validation
-                │
-                ▼
-          PostgreSQL (Raw)
-                │
-                ▼
-              dbt Models
-      (staging → intermediate → marts)
-                │
-                ▼
-        Business KPI Calculation
-                │
-                ▼
-          Power BI Dashboard
-                │
-                ▼
- State Expansion Priority Score
-```
+### Macro-to-Micro Data Generation
 
-------------------------------------------------------------------------
+The state-level reference datasets represent approximately **36 lakh EV registrations** and **12,000 operational public charging stations** across India.
 
-# Data Sources
+The customer population was downscaled to **5 lakh synthetic customers** while preserving the state-level EV registration distribution for customers and maintain the relative demand-to-infrastructure relationship for stations.. Charging stations were proportionally downscaled to **~1,600 stations** to maintain the relative demand-to-infrastructure relationship. States that would otherwise receive zero stations after scaling were assigned a minimum of one station.
 
-## Government Data
+Customer, vehicle, station, and charging-session attributes were then generated using **reference distributions, industry-supported probabilities, statistical distributions, and business assumptions**.
 
--   State-wise EV Registrations (2019--2024)
--   State Population
--   State Coordinates
+The resulting operational environment contains:
 
-## Reference Data
+- **500K synthetic customers**
+- **~1,600 charging stations**
+- **~2.1M charging sessions**
+- **35 days of simulated operations**
 
--   Operational Public Charging Stations
--   EV Sales by Manufacturer
--   EV Vehicle Master
+A Python ingestion script loads the reference tables and generated operational data into PostgreSQL in a single execution.
 
-## Simulated Data
+---
 
-Python generates:
+# 🏗 Data Pipeline
 
--   Dim Customer
--   Dim Charging Station
--   Fact Charging Events
+```text
+Government / Kaggle / Industry Reference Data
+                    │
+                    ▼
+        Macro-to-Micro Data Engineering
+                    │
+                    ▼
+          Synthetic Operational Data
+       500K Customers / ~1,600 Stations
+             / ~2.1M Sessions
+                    │
+                    ▼
+          Automated Ingestion Script
+                    │
+                    ▼
+                PostgreSQL
+                    │
+                    ▼
+              dbt Transformation
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+      Staging            Intermediate
+      Models                Models
+                                │
+                                ▼
+                           Mart Models
+                                │
+                                ▼
+                       Power BI Semantic
+                             Model
+                                │
+                                ▼
+                           Dashboards
+ ```
 
-------------------------------------------------------------------------
+ 
+---
 
-# Planned Data Model
+# 🧱 dbt Transformation Architecture
 
-## Dimension Tables
+### Staging
 
--   Dim Customer
--   Dim Charging Station
--   Dim Vehicle
--   Dim Date
--   Dim State
+Source and synthetic operational data are standardized through staging models, including column naming and data type normalization.
 
-## Fact Tables
+### Intermediate
 
--   Fact Charging Events
--   Fact Daily Charging Demand (Derived)
+Grain-specific analytical models are created for entities and operating levels such as:
 
-------------------------------------------------------------------------
+* Customer
+* Station
+* State
+* Station × Day
+* Hour
+* Charging Session
 
-# Execution Flow
+### Marts
 
-``` text
-python main.py
-      │
-      ▼
-Load Reference Data
-      ▼
-Generate Simulation
-      ▼
-Validate Data
-      ▼
-Load into PostgreSQL
-      ▼
-dbt run
-      ▼
-dbt test
-      ▼
-Power BI
-```
+Visualization-ready analytical models are created for Power BI reporting and analysis.
 
-------------------------------------------------------------------------
+---
 
-# Key Business Metrics
+# 📊 Dashboard Pages
 
--   EV Penetration
--   Chargers per 1,000 EVs
--   Charging Demand
--   Charger Utilization
--   Infrastructure Gap
--   State Readiness Score
--   State Expansion Priority Score
+## 1️⃣ Network Operations Overview
 
-------------------------------------------------------------------------
+Answers:
 
-# Dashboard
+* How much charging activity does the network handle over the 35-day operating period?
+* When does charging demand peak during the day?
+* How is charging demand distributed across states?
+* Which stations handle the highest number of charging sessions?
+* How does charging activity differ between 2W and 4W vehicles?
 
-The Power BI dashboard will include:
+---
 
--   Executive Summary
--   State EV Adoption
--   Charging Infrastructure
--   Infrastructure Gap Analysis
--   Charging Demand Analysis
--   State Priority Ranking
--   ₹1,000 Crore Investment Recommendation
+## 2️⃣ Customer Behavior
 
-------------------------------------------------------------------------
+Answers:
 
-# Repository Structure
+* How many customers rely on public charging?
+* How frequently do customers use public charging?
+* Which manufacturers make up the largest share of the customer base?
+* How does public charging adoption compare with home charging availability?
+* At what battery SOC (State of Charge) do customers typically begin and end charging?
+* What does the daily driving-distance distribution look like?
 
-``` text
-.
-├── data/
-│   ├── reference/
-│   └── simulated/
-├── python/
-│   ├── simulation/
-│   ├── validation/
-│   └── loaders/
-├── postgres/
-├── dbt/
-├── powerbi/
-├── docs/
-├── images/
-├── main.py
-├── requirements.txt
-└── README.md
-```
+---
 
-------------------------------------------------------------------------
+## 3️⃣ State & Station Performance
 
-# Project Status
+Answers:
 
--   ✅ Business Problem Finalized
--   ✅ Architecture Finalized
--   ✅ Dataset Collection Completed
--   🚧 Simulation Design In Progress
--   ⏳ Python Simulation
--   ⏳ PostgreSQL Integration
--   ⏳ dbt Models
--   ⏳ Power BI Dashboard
+* Which states have the highest charging infrastructure utilization?
+* How does charging demand compare with the number of operational stations across states?
+* Does increasing connector capacity correspond to higher average daily charging activity?
+* Which charging stations deliver the highest session volume, energy, and utilization?
+* How does station-level performance vary across the network?
 
-------------------------------------------------------------------------
+---
 
-# License
+# 📐 Analytical Data Model
 
-This project is intended for educational and portfolio purposes.
+The project uses a layered analytical model to transform session-level operational data into reporting-ready grains.
+
+### Core Entities
+
+* Customer
+* Charging Station
+* EV Vehicle
+* Charging Session
+
+### Analytical Grains
+
+* Charging Session
+* Customer
+* Station
+* Station × Day
+* Hour
+* State
+
+---
+
+# 📈 Key Analytical Outputs
+
+The platform enables analysis of:
+
+* Charging demand trends and peak charging periods
+* Customer charging behavior and frequency
+* Battery SOC and daily driving patterns
+* Station utilization and operational performance
+* Station demand and energy delivery
+* Connector capacity vs charging activity
+* State-level charging demand and infrastructure utilization
+* Demand vs infrastructure relationships across states
+
+---
+
+# ⚠ Limitations
+
+* Operational charging data is **synthetic**, not collected from a live charging network; generation is based on reference data, industry research, statistical distributions, and business assumptions.
+* Dashboard results represent the modeled **35-day operating environment**, not observed real-world charging-network performance.
+* **Utilization categories are relative, not absolute:** High / Medium / Low are assigned using `NTILE(3)`, so they indicate a station's position relative to other stations in the dataset rather than whether its utilization meets an industry-defined threshold.
+
+---
+                          
