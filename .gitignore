@@ -14,3 +14,7 @@ data/simulated/
 
 # Database details for connection
 .env
+
+# Ignore dbt project root & temporary logs
+ev_analytics_dbt/
+logs/
