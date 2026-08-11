@@ -141,6 +141,8 @@ Answers:
 * Which stations handle the highest number of charging sessions?
 * How does charging activity differ between 2W and 4W vehicles?
 
+<img width="1308" height="736" alt="image" src="https://github.com/user-attachments/assets/7eeb26bd-6399-4c33-8564-bc3e12ff7251" />
+
 ---
 
 ## 2️⃣ Customer Behavior
@@ -154,6 +156,9 @@ Answers:
 * At what battery SOC (State of Charge) do customers typically begin and end charging?
 * What does the daily driving-distance distribution look like?
 
+<img width="1303" height="716" alt="image" src="https://github.com/user-attachments/assets/89595769-8d5a-4f9a-a45e-fb427b622fbd" />
+
+
 ---
 
 ## 3️⃣ State & Station Performance
@@ -165,6 +170,9 @@ Answers:
 * Does increasing connector capacity correspond to higher average daily charging activity?
 * Which charging stations deliver the highest session volume, energy, and utilization?
 * How does station-level performance vary across the network?
+
+<img width="1302" height="733" alt="image" src="https://github.com/user-attachments/assets/05858ce0-bcde-44f2-8209-ff407f5c0391" />
+
 
 ---
 
