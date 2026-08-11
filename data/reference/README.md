@@ -35,9 +35,8 @@ Minor preprocessing (such as removing empty columns, standardizing column names,
 | Table | Description | Purpose in Project |
 |----------|-------------|------|
 | ev_vehicle_master.csv | EV specifications including battery capacity, range and charging power | Vehicle simulation |
-| ev_sales_by_makers_and_cat_15_24.csv | Manufacturer-wise EV sales by year | Manufacturer selection probabilities |
+| ev_sales_by_makers_and_cat_15_24.csv | Manufacturer & category wise EV sales by year | Category & Manufacturer selection probabilities |
 | OperationalPC.csv | Operational public charging stations by state | Charging station generation |
-| ev_cat_01_24.csv | Historical EV registrations by vehicle category | Optional registration year distribution |
 
 ---
 
